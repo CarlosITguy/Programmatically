@@ -89,21 +89,12 @@ class PlaceHolderDetailViewController: UIViewController, UITableViewDataSource {
         self.Mainimage.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
         
 //        self.Mainimage.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,constant: -8).isActive = true
-
-       
-        
-        
-
-        
-        
-        
-        
-        
         
         
     }
     
-    
+    // MARK: View Life Cicle
+    /// This will help as a reference in how the view works
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,5 +127,4 @@ class PlaceHolderDetailViewController: UIViewController, UITableViewDataSource {
         
         print("VC: View did leave")
     }
-    
 }
