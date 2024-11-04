@@ -9,15 +9,15 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var data : [String] = ["Aphelios" , "AurelionSol","Bard", "Braum","Daeja" , "Diana" ,"Ezreal","Gnar", "Graves", "Hecarim", "Heimerdinger","Jax", "Jayce", "Kaisa", "Karma" , "LeeSin", "Leona", "Lilia", "Lulu", "Lux", "Malphite", "Nasus", "Nidalee", "Nilah", "Nomsy" ,"Nunu", "Olaf", "Pantheon","Sylas"]
-    var img : [String] =  ["Aphelios" , "AurelionSol","Bard", "Braum","Daeja" , "Diana" ,"Ezreal","Gnar", "Graves", "Hecarim", "Heimerdinger","Jax", "Jayce", "Kaisa", "Karma" , "LeeSin", "Leona", "Lilia", "Lulu", "Lux", "Malphite", "Nasus", "Nidalee", "Nilah", "Nomsy" ,"Nunu", "Olaf", "Pantheon","Sylas"]
-    
     var tableView: UITableView?
+    var NetwrokManager: NetworkManagable
+    var data: [String]
     
-    init() {
+    init(netowrkManager: NetworkManagable = NetworkManager()) {
+        self.NetwrokManager = netowrkManager
+        self.data = netowrkManager.fetchData()
         super.init(nibName: nil, bundle: nil)
-        self.setUpUI()
-    }
+            }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -25,9 +25,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setUpUI()
     }
     
     private func setUpUI() {
+        
         self.view.backgroundColor = .systemBlue
         self.title = "Programmatic Example"
         
@@ -62,19 +64,13 @@ class ViewController: UIViewController {
         self.tableView = table
         
     }
-    
-    
-    
-    
-
-
 }
 
 
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return img.count
+        return data.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -82,7 +78,7 @@ extension ViewController: UITableViewDataSource {
             fatalError("Whoops, something went wrong")
         }
 //        cell.textLabel?.text = "\(indexPath)"
-        cell.progImageView.image = UIImage(named: self.img[indexPath.row % img.count])
+        cell.progImageView.image = UIImage(named: self.data[indexPath.row % data.count])
         cell.progMidLabel.text = self.data[indexPath.row]
         return cell
     }
@@ -91,10 +87,8 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let placeholderVC = PlaceHolderDetailViewController()
         self.navigationController?.pushViewController(placeholderVC, animated: true)
     }
-    
 }
